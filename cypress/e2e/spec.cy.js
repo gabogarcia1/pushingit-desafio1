@@ -37,15 +37,23 @@ describe('Pre Entrega', () => {
     homePage.clickOnlineShop();
     productPage.clickOnAddProduct()
     createProductModal.addProduct(productos.PrimerProducto.nombre, productos.PrimerProducto.precio, productos.PrimerProducto.img, productos.PrimerProducto.id)
-    createProductModal.verifyMsgProductAdded(productos.PrimerProducto.nombre)
+    cy.get('p').contains(`${productos.PrimerProducto.nombre} has been added`).should('exist')
+
+    createProductModal.clickOncloseModal()
+
     productPage.selectFilterById()
     productPage.filterProductById(productos.PrimerProducto.id)
-    productPage.verifyFilteredProductNameExists(productos.PrimerProducto.nombre)
-    productPage.verifyFilteredProductPrice(productos.PrimerProducto.precio)
+    cy.get(productPage.productName).contains(productos.PrimerProducto.nombre).should('have.length', 1)
+
+    cy.get(productPage.productPrice).contains(productos.PrimerProducto.precio).should('have.length', 1)
+
+
     cy.wait(3000)
     productPage.deleteProdById(productos.PrimerProducto.id)
-    productPage.verifyMsgProductDeleted(productos.PrimerProducto.nombre)
+    cy.get('p').contains(`${productos.PrimerProducto.nombre} has been deleted`).should('exist')
+    cy.get(productPage.closeModal).click()
     productPage.filterProductById(productos.PrimerProducto.id)
-    productPage.verifyFilteredProductNameDoesNotExists(productos.PrimerProducto.nombre)
+    cy.get(productPage.productName).contains(productos.PrimerProducto.nombre).should('not.exist')
+
   })
 })

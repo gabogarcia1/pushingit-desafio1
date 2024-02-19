@@ -36,8 +36,8 @@ export class CreateProductModal {
         this.addProductID(id)
         cy.get(this.createProductButton).click()
     }
-    verifyMsgProductAdded(name){
-        cy.get('p').contains(`${name} has been added`).should('exist')
+
+    clickOncloseModal() {
         cy.get(this.closeModal).click()
     }
 

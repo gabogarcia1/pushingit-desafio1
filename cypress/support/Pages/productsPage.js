@@ -30,18 +30,4 @@ export class ProductsPage {
         cy.get(trashButtonById).click()
         cy.get(this.deleteProductModelButton).click()
     }
-    verifyMsgProductDeleted(name){
-        cy.get('p').contains(`${name} has been deleted`).should('exist')
-        cy.get(this.closeModal).click()
-    }
-   
-    verifyFilteredProductNameExists(name){
-        cy.get(this.productName).contains(name).should('have.length',1)
-    }
-    verifyFilteredProductPrice(price){
-        cy.get(this.productPrice).contains(price).should('have.length',1)
-    }
-    verifyFilteredProductNameDoesNotExists(name){
-        cy.get(this.productName).contains(name).should('not.exist')
-    }
 }
